@@ -63,6 +63,3 @@ Client `.env`:
 5. SastaKhoj returns listings sorted by price.
 6. Customer can see shop details, rating, stock and map location.
 
-## Notes
-- Product images are stored as image URLs in this version. This avoids needing a file-storage service during the college-project phase.
-- Leaflet uses OpenStreetMap tiles. Follow the tile provider's usage policy when deploying at scale.
