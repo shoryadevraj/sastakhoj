@@ -1,0 +1,5 @@
+import Review from "../models/Review.js"; import Shop from "../models/Shop.js";
+const refresh=async(shopId)=>{const rows=await Review.find({shop:shopId});const rating=rows.length?rows.reduce((s,r)=>s+r.rating,0)/rows.length:0;await Shop.findByIdAndUpdate(shopId,{rating:Number(rating.toFixed(1)),reviewCount:rows.length});};
+export const listReviews=async(req,res,next)=>{try{const reviews=await Review.find({shop:req.params.shopId}).populate("user","name").sort({createdAt:-1});res.json({success:true,reviews});}catch(e){next(e)}};
+export const createReview=async(req,res,next)=>{try{const{shop,rating,comment}=req.body;const review=await Review.findOneAndUpdate({user:req.user._id,shop},{rating,comment},{new:true,upsert:true,runValidators:true,setDefaultsOnInsert:true});await refresh(shop);res.status(201).json({success:true,review});}catch(e){next(e)}};
+export const deleteReview=async(req,res,next)=>{try{const r=await Review.findOneAndDelete({_id:req.params.id,user:req.user._id});if(r)await refresh(r.shop);res.json({success:true});}catch(e){next(e)}};

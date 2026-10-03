@@ -1,0 +1,1 @@
+import {Router} from "express"; import {listWishlist,addWishlist,removeWishlist} from "../controllers/wishlistController.js"; import {protect} from "../middleware/auth.js"; const r=Router(); r.get("/",protect,listWishlist); r.post("/:productId",protect,addWishlist); r.delete("/:productId",protect,removeWishlist); export default r;

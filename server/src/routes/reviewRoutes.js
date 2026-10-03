@@ -1,0 +1,1 @@
+import {Router} from "express"; import {listReviews,createReview,deleteReview} from "../controllers/reviewController.js"; import {protect} from "../middleware/auth.js"; const r=Router(); r.get("/shop/:shopId",listReviews); r.post("/",protect,createReview); r.delete("/:id",protect,deleteReview); export default r;

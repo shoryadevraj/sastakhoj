@@ -1,0 +1,1 @@
+import {Router} from "express"; import {listCategories,createCategory,deleteCategory} from "../controllers/categoryController.js"; import {protect,roles} from "../middleware/auth.js"; const r=Router(); r.get("/",listCategories); r.post("/",protect,roles("admin"),createCategory); r.delete("/:id",protect,roles("admin"),deleteCategory); export default r;
